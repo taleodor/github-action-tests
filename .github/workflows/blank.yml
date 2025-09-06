@@ -26,12 +26,12 @@ jobs:
         run: |
           docker pull registry.relizahub.com/291f1cbe-e608-4ffd-8e1e-9a7f78e3df18-public/rebom-frontend@sha256:54d3c6367e24ffbf677a3578487898906ea42ea361ee52105716d40646ef13ff
           docker save -o docker.tar registry.relizahub.com/291f1cbe-e608-4ffd-8e1e-9a7f78e3df18-public/rebom-frontend@sha256:54d3c6367e24ffbf677a3578487898906ea42ea361ee52105716d40646ef13ff
-          # export FETCH_LICENSE=true
-          # export CDXGEN_DEBUG_MODE=debug
-          # pip install blint
+          export FETCH_LICENSE=true
+          export CDXGEN_DEBUG_MODE=debug
+          pip install blint
           # export TMPDIR=$PWD/tmp
           # mkdir -p "$TMPDIR"
-          # cdxgen docker.tar -t docker --lifecycle post-build --exclude-regex ".*\/usr\/lib64.*" --project-version "${{ inputs.rearm_full_version }}" -o docker.cdx.bom.raw.json
-          docker run --rm -u root -v $(pwd):/app:rw ghcr.io/cyclonedx/cdxgen:v11.7.0@sha256:f33f2a067a419d599eb31a0dd007bc5d40eea7e1da64d9316024f1083fec16fa /app/docker.tar -t docker --lifecycle build -o /app/docker.cdx.bom.raw.json
+          cdxgen docker.tar -t docker --lifecycle build --project-version "${{ inputs.rearm_full_version }}" -o docker.cdx.bom.raw.json
+          # docker run --rm -u root -v $(pwd):/app:rw ghcr.io/cyclonedx/cdxgen:v11.7.0@sha256:f33f2a067a419d599eb31a0dd007bc5d40eea7e1da64d9316024f1083fec16fa /app/docker.tar -t docker --lifecycle build -o /app/docker.cdx.bom.raw.json
           du -h ./docker.cdx.bom.raw.json
 
