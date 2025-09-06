@@ -31,5 +31,5 @@ jobs:
           pip install blint
           export TMPDIR=$PWD/tmp
           mkdir -p "$TMPDIR"
-          cdxgen docker.tar -t docker --lifecycle post-build --exclude "**/usr/lib64/**" --project-version "${{ inputs.rearm_full_version }}" -o docker.cdx.bom.raw.json
+          cdxgen docker.tar -t docker --lifecycle post-build --exclude "**/usr/lib64" --exclude "**/usr/lib64/**" --project-version "${{ inputs.rearm_full_version }}" -o docker.cdx.bom.raw.json
 
